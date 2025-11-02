@@ -8,8 +8,6 @@ A small, turn-based console RPG where you explore a grid map, battle enemies, ma
 - Turn-based combat: adjacent combat attack
 - command line for display status or quit game
 - enemies will be disappeared when defeated.
-<<<<<<< HEAD
-=======
 
 ## Update
 **Implemented Features**:
@@ -36,3 +34,4 @@ A small, turn-based console RPG where you explore a grid map, battle enemies, ma
 - I copy from all lab so not really much things go to error 
 - About new update for Cmake list I separate between test and run program because otherwise it will fall to run a test.
 >>>>>>> ba69dca (new Update for Dark Age)
+
