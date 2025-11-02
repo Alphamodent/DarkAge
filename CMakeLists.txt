@@ -1,14 +1,32 @@
 cmake_minimum_required(VERSION 3.10)
 project(Dark_age)
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-# Include directory
+
+# Headers live here for both targets
 include_directories(include)
-# Source files (add more as you create them)
-set(SOURCES
+
+add_executable(Dark_age
         src/main.cpp
-        # src/Game.cpp # Uncomment when you create implementation files
-        # src/GameManager.cpp
+        src/Game.cpp
+        src/Map.cpp
+        src/Player.cpp
+        src/Character.cpp
+        src/Inventory.cpp
+        src/Item.cpp
 )
-# Create executable
-add_executable(GameManager ${SOURCES})
+
+
+enable_testing()
+
+add_executable(rpg_tests
+        tests/Test.cpp        # my test file with its own main()
+        src/Character.cpp
+        src/Inventory.cpp
+        src/Item.cpp
+        src/Map.cpp
+        src/Player.cpp
+)
+
+add_test(NAME rpg_tests COMMAND rpg_tests)
