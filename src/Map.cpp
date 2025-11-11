@@ -2,6 +2,9 @@
 #include "Player.h"
 #include <iostream>
 #include <sstream>
+#include "Enemy.h"
+#include "NPC.h"
+#include "Character.h"
 
 Map::Map(int w, int h, Player* p)
     : width(w), height(h), player(p) {
@@ -34,19 +37,39 @@ Map::~Map() {
     delete[] grid;
 }
 
-void Map::draw() const {
+void Map::draw(const std::vector<Enemy*> &enemies, const std::vector<NPC*> &npcs) const {
     for (int r = 0; r < height; r++) {
         for (int c = 0; c < width; c++) {
             if (r == player->getY() && c == player->getX())
                 std::cout << '@';
-            else
-                std::cout << grid[r][c];
+            else {
+                bool found = false;
+                for (const auto enemy : enemies) {
+                    if (enemy->getX() == c && enemy->getY() == r && enemy -> isAlive()) {
+                        std::cout << enemy->getSymbol();
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    //check NPCs
+                    for (const auto npc : npcs) {
+                        if (npc->getX() == c && npc->getY() == r) {
+                            std::cout << 'N';
+                            found = true;
+                            break;
+                        }
+                    }
+                }if (!found) {
+                    std::cout << grid[r][c];
+                }
+            }
         }
         std::cout << '\n';
     }
 }
 
-bool Map::isWall(int x, int y) const {
+bool Map::isWall( int x,  int y) const {
     if (x < 0 || y < 0 || x >= width || y >= height)
         return true; // out of bounds
     return grid[y][x] == '#';

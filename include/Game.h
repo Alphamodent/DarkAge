@@ -8,15 +8,25 @@ class Game {
 private:
     Player player;
     Map gameMap;
-    bool running;
 
-    void processInput();
+    std::vector<Enemy*> enemies;
+    std::vector<NPC*> npcs;
+
+    bool running;
+    int enemiesDefeated;
+    Item item;
 
 public:
     Game();
     ~Game();
-
     void run();
+
+    static void waitForKey();
+    //helper methods
+    void processInput();
+    bool combat(Enemy* enemy);
+    static void interactWithNPC(NPC* npc);
+
 };
 
 #endif

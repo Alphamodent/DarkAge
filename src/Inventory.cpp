@@ -39,7 +39,7 @@ int Inventory::getTotalAttackBonus() const {
     int total =0;
     for (int i =0; i <itemCount-1; i++) {
         if (items[i].getType() == WEAPON) {
-            total += getTotalAttackBonus();
+            total += items[i].getAttackBonus();
         }
     }
     return total;
@@ -49,8 +49,9 @@ int Inventory::getTotalDefenseBonus() const {
     int total = 0;
     for (int i =0; i <itemCount-1; i++) {
         if (items[i].getType() == PROTECT_GEAR) {
-            total += getTotalDefenseBonus();
+            total += items[i].getAttackBonus();
         }
     }
     return total;
 }
+// haiyaa I just remember that I try to use getAttackBonus for bonus Attack and Defend for reusable (I'm lazy).

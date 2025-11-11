@@ -28,10 +28,9 @@ std::ostream& operator<<(std::ostream& out, const Item& item) {
     }
     return out;
 }
-Item::Item(): name(" "), strengthPower(0), protectionPower(0), value(0), type(){
-}
+Item::Item(): name(" "), strengthPower(0), protectionPower(0), value(0), type(){}
 
-Item::Item(std::string name, int value, ItemType type, int power)
+Item::Item(const std::string& name, const int value, const ItemType type, const int power)
     : name(name), value(value), type(type), strengthPower(0), protectionPower(0) {
     this->name = name;
     this->value = value;

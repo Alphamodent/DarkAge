@@ -23,9 +23,7 @@ int Player::getAttackPower() const {
 
 void Player::takeDamage(int damage) {
     Character::takeDamage(damage);
-    health -= damage;
-    if (health <= 0) {
-        health = 0;
+    if (!isAlive()) {
         displayStatus();
         std::cout << "Game Over! "<<name<<" has fallen" << std::endl;
     }

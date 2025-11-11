@@ -2,15 +2,11 @@
 // Created by Seneca on 11/1/2025.
 //
 #include "Character.h"
-#include "Game.h"
 #include <iostream>
 #include "Item.h"
 
 Character::Character(std::string name, int health, int maxHealth, int strength, int armor)
-    :name(std::move(name)), health(health), maxHealth(maxHealth), strength(strength), armor(armor), y(0), x(0) {
-    this->maxHealth = maxHealth;
-    this->name = std::move(name);
-}
+:name(std::move(name)), health(health), maxHealth(maxHealth), strength(strength), armor(armor), y(0), x(0) {}
 
 Character::~Character() {
     std::cout << "Character "<<this->name<<" had been destroyed" << std::endl;
@@ -21,8 +17,9 @@ void Character::takeDamage(int damage) {
     if (reduceDamage < 0) reduceDamage = 0;
 
     health -= reduceDamage;
-    std::cout << "[" << name << "] takes [" << reduceDamage <<"] damage! \n";
     if (health < 0) health=0;
+    std::cout << "[" << name << "] takes [" << reduceDamage <<"] damage! \n";
+
 }
 
 int Character::getAttackPower() const { return strength;}
@@ -33,7 +30,7 @@ bool Character::isAlive() const {
 }
 
 void Character::displayStatus() const {
-    std::cout << name << " - HP: [" << health << "]/[" <<maxHealth << "]";
+    std::cout << this->name << " - HP: [" << health << "]/[" <<maxHealth << "]";
 }
 
 void Character::setPosition(int x, int y) {

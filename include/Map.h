@@ -8,6 +8,8 @@
 #include "Player.h"
 #include <iostream>
 #include <vector>
+#include "NPC.h"
+#include "Enemy.h"
 
 class Map {
 private:
@@ -21,7 +23,7 @@ public:
     ~Map();
 
     //draw() now takes character lists to display
-    void draw() const;
+    void draw(const std::vector<Enemy*> &enemies, const std::vector<NPC*> &npcs) const;
     bool isWall(int x, int y) const;
 
     //Getter method

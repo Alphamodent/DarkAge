@@ -1,7 +1,5 @@
-#include "Player.h"
 #include "Game.h"
 #include <iostream>
-#include <string>
 
 int main() {
     std::cout << "Starting game...\n";

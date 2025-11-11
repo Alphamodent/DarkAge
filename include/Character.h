@@ -10,10 +10,10 @@
 class Character {
 protected:
     std::string name;
-    int health{};
-    int maxHealth{}; // this is const health and unchangeable to represent for initial health
-    int strength{}; // mean base attack power before wear sword to add more damage
-    int armor{}; /* same strength and add more protection but will initial with 0
+    int health;
+    int maxHealth; // this is const health and unchangeable to represent for initial health
+    int strength; // mean base attack power before wear sword to add more damage
+    int armor; /* same strength and add more protection but will initial with 0
     exp: health = health + armor - damage, armor will not be decrease and const so everytime take damage armor will help health decrease damage*/
     int x, y; //position
 
