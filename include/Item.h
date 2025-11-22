@@ -21,7 +21,7 @@ private:
 public:
     //constructor
     Item();
-    Item(const std::string& name, int value, ItemType type, int power);
+    Item(const std::string& name, int value, ItemType type, int AttackPower, int armor);
 
     //Getter methods
     std::string getName() const{return name;}

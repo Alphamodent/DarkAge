@@ -27,10 +27,10 @@ void NPC::speak() {
     }
 
     // Print current dialogue line
-    std::cout << name << ": " << dialogue[currentDialogue] << std::endl;
+    std::cout << dialogue[currentDialogue] << std::endl;
 
     // Advance to the next line - cycle back to start if at the end
-    currentDialogue = (currentDialogue+1) % dialogue.size();
+    currentDialogue = (currentDialogue + 1) % dialogue.size();
 
 }
 

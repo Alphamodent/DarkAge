@@ -24,7 +24,7 @@ public:
 
     // MUST override pure virtual function from Character (required!)
     int getAttackPower() const override;
-
+    int getArmorPower() const override;
     // Override from Character (redefine for player-specific behavior)    void takeDamage(int damage);  // Redefine to show player-specific message
     void takeDamage(int damage) override;
 

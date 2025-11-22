@@ -23,7 +23,7 @@ add_executable(Dark_age
 enable_testing()
 
 add_executable(rpg_tests
-        tests/Test2.cpp # my test file with its own main()
+        tests/Test3.cpp # my test file with its own main()
         src/Character.cpp
         src/Game.cpp
         src/Inventory.cpp

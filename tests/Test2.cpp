@@ -42,8 +42,8 @@ void testItemAndInventory() {
 
     Inventory inv(5);
 
-    Item sword("Test Sword", 10, WEAPON, 5);
-    Item armor("Test Armor", 15, PROTECT_GEAR, 3);
+    Item sword("Test Sword", 10, WEAPON, 10, 0);
+    Item armor("Test Armor", 15, PROTECT_GEAR, 0,3);
 
     CHECK(inv.addItem(sword), "Add weapon to inventory");
     CHECK(inv.addItem(armor), "Add armor to inventory");
@@ -67,7 +67,7 @@ void testPlayer() {
     CHECK(p.getHealth() == 100, "Player HP");
     CHECK(p.getAttackPower() >= 20, "Player base attack >= 20");
 
-    Item sword("Iron Sword", 10, WEAPON, 5);
+    Item sword("Iron Sword", 10, WEAPON, 5, 0);
     p += sword;
 
     int atk = p.getAttackPower();

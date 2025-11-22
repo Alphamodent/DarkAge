@@ -9,19 +9,19 @@
 #include "Enemy.h"
 #include "Map.h"
 #include "Character.h"
-
+#include "Inventory.h"
 Game::Game()
-    : player("Goblin Slayer", 100, 20, 100, 0),
+    : player("Goblin Slayer", 100, 20, 100, 0),//why doesn't reduce damage when player got damaged
       gameMap(10, 10, &player),
       running(true), enemiesDefeated(0) {
     std::cout << "Welcome to the RPG!\n";
-    Item sword("Iron Sword", 1, WEAPON, 15);
-    Item armor("Iron Armor", 1, PROTECT_GEAR, 5);
+    Item sword("Iron Sword", 1, WEAPON, 15, 0);
+    Item armor("Iron Armor", 1, PROTECT_GEAR, 0, 5);
     player += sword;
     player += armor;
 
     //create enemies and set their positions
-    auto *goblin = new Enemy("Goblin", 30, 30, 8, 2, 25, 'G' );
+    auto *goblin = new Enemy("Goblin", 100, 100, 8, 2, 25, 'G' );
     goblin->setPosition(4,3);
     enemies.push_back(goblin);
 
@@ -33,7 +33,8 @@ Game::Game()
     std::vector<std::string> merchantDialogue = {
         "Welcome, traveler!",
         "There is nothing to buy yet",
-        "Please come back when there is final update release"
+        "Please come back when there is final update release",
+        "Fack u, I said there is nothing here"
     };
 
     auto merchant = new NPC("Merchant", merchantDialogue);
@@ -66,6 +67,7 @@ void Game::processInput() {
     else if (input == 'D' || input == 'd') X++;
     else if (input == 'Q' || input == 'q') { running = false; return; }
     else if (input == 'E' || input == 'e') {
+
         // Talk to NPC on same tile (no movement)
         for (NPC* npc : npcs) {
             if (npc->getX() == player.getX()
@@ -76,6 +78,10 @@ void Game::processInput() {
                 }
         }
         return; // no NPC, do nothing
+    }
+    else if (input == 'I' || input == 'i') {
+        Inventory inventory;
+        inventory.display();
     }
     else return;
 
@@ -93,16 +99,8 @@ void Game::processInput() {
             return;
         }
     }
-    for (NPC* npc : npcs) {
-        if (npc->isAlive() &&
-            npc->getX() == X &&
-            npc->getY() == Y)
-            {
-            interactWithNPC(npc);
-            return;
-        }
     }
-}
+
 bool Game::combat(Enemy *enemy) {
     if (!enemy) {
         std::cout << "[DEBUG] combat called with null enemy\n";
@@ -113,10 +111,22 @@ bool Game::combat(Enemy *enemy) {
     std::cout << "You encounter a " << enemy->getName() << "!\n";
     while (player.isAlive() && enemy->isAlive()) {
         int playerDamage = player.getAttackPower();
-        enemy->takeDamage(playerDamage);
+        int choice;
 
-        std::cout << "You cast testicular torsion on " << enemy->getName()
-                  << " for " << playerDamage << " damage.\n";
+        std::cout << "1 to attack, 2 to quit combat \n" << "Your turn: ";
+        std::cin >> choice;
+        switch (choice) {
+            case 1:
+                std::cout << "You cast testicular torsion on ";
+                enemy->takeDamage(playerDamage);
+                std::cout << "actual damage: " << playerDamage << " damage.\n";
+                break;
+            case 2:
+                return true;
+            default:
+                std::cout << "invalid choice";
+                continue;
+        }
 
         if (!enemy->isAlive()) {
             std::cout << "You defeated the " << enemy->getName() << "!\n";
@@ -124,12 +134,17 @@ bool Game::combat(Enemy *enemy) {
             enemiesDefeated++;
             return true;
         }
-
+        // the first problem , I use inheritance from Character so it only reduce in  player("Goblin Slayer", 100, 20, 100, 0) instead of my Protect gear.
+        // the second is here in while combat, I make damage from enemies directly on player health instead of through armor
         int enemyDamage = enemy->getAttackPower();
+        int beforeHP = player.getHealth();
         player.takeDamage(enemyDamage);
-
+        int lost =beforeHP - player.getHealth();
+        std::cout << enemy->getName() << " turn:\n";
         std::cout << enemy->getName()
-                  << " hits you for " << enemyDamage << " damage.\n";
+                  << " original damage: " << enemyDamage << " damage.\n"
+                  << " after reduce damage: " << lost << "damage. \n" ;
+
 
         if (!player.isAlive()) {
             std::cout << "You were defeated!\n";
@@ -138,12 +153,12 @@ bool Game::combat(Enemy *enemy) {
         }
     }
 
-    return false;
+    return true;
 }
 
 void Game::interactWithNPC(NPC *npc) {
     std::cout << "\n=== Talking to NPC ===\n";
-    std::cout << npc->getName() << " says:\n";
+    std::cout << npc->getName() << ":\n";
     npc->speak();
 }
 
@@ -154,8 +169,8 @@ void Game::run() {
 #else
         system("clear");
 #endif
-        gameMap.draw(enemies, npcs); // Pass character vector
 
+        gameMap.draw(enemies, npcs); // Pass character vector
         //show status
         std::cout << "\n";
         player.displayStatus();
@@ -176,3 +191,4 @@ void Game::waitForKey() {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin.get();
 }
+

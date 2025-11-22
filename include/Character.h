@@ -24,7 +24,8 @@ public:
 
     //Combat methods
     virtual void takeDamage(int damage);
-    virtual int getAttackPower() const;
+    virtual int getAttackPower() const{return strength;}
+    virtual int getArmorPower() const{return armor;}
 
     //status method
     bool isAlive() const;

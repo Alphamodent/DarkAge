@@ -22,8 +22,6 @@ void Character::takeDamage(int damage) {
 
 }
 
-int Character::getAttackPower() const { return strength;}
-
 bool Character::isAlive() const {
     if (health > 0) return true;
     return false;

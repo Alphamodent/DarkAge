@@ -5,7 +5,7 @@
 #include "Player.h"
 
 class Game {
-private:
+protected:
     Player player;
     Map gameMap;
 
@@ -27,6 +27,7 @@ public:
     bool combat(Enemy* enemy);
     static void interactWithNPC(NPC* npc);
 
+    //Combat command
 };
 
 #endif

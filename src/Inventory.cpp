@@ -3,6 +3,7 @@
 //
 #include "Inventory.h"
 #include "Item.h"
+#include "Game.h"
 #include <iostream>
 
 Inventory::Inventory(int capacity): capacity(capacity), itemCount(0) {
@@ -29,15 +30,17 @@ bool Inventory::addItem(const Item &item) {
 }
 
 void Inventory::display() const {
+    Game game;
     std::cout << "Inventory (" << itemCount << "/" << capacity << "): " << std::endl;
     for (int i = 0; i < itemCount; i++) {
         std::cout << " " << items[i] << std::endl;
     }
+    game.waitForKey();
 }
 
 int Inventory::getTotalAttackBonus() const {
     int total =0;
-    for (int i =0; i <itemCount-1; i++) {
+    for (int i =0; i <itemCount; i++) {
         if (items[i].getType() == WEAPON) {
             total += items[i].getAttackBonus();
         }
@@ -47,11 +50,10 @@ int Inventory::getTotalAttackBonus() const {
 
 int Inventory::getTotalDefenseBonus() const {
     int total = 0;
-    for (int i =0; i <itemCount-1; i++) {
+    for (int i =0; i <itemCount; i++) {
         if (items[i].getType() == PROTECT_GEAR) {
-            total += items[i].getAttackBonus();
+            total += items[i].getArmorBonus();
         }
     }
     return total;
 }
-// haiyaa I just remember that I try to use getAttackBonus for bonus Attack and Defend for reusable (I'm lazy).
