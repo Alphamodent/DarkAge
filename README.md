@@ -24,11 +24,11 @@ A small, turn-based console RPG where you explore a grid map, battle enemies, ma
 - ✅ Add combat with enemy
 - ✅ Add output for combat enemy
 - ✅ Add menu: show Start game and quit game
+- ✅ Show inventory, health player while combat
 - this is a small update and fix bug
 
 **In Progress**:
-- ⏳ Trying to equip and remove sword and armor
-- ⏳ Show inventory, health player while combat
+
 
 **Planned**:
 - 📋 Add equip and remove sword and armor
@@ -41,3 +41,4 @@ A small, turn-based console RPG where you explore a grid map, battle enemies, ma
 - Fixing logic for attaching weapon and protect-gear (harder than expected).
 - currently armor gear is not attach to player to help player reduce damage. *need to fix and find problem
 - if want to add command line don't have to create other class just create a function.
+
